@@ -21,6 +21,8 @@ The driver comes from the fork [codebyallan/aic8800d80](https://github.com/codeb
 
        imports = [ ./aic8800-driver.nix ];
        hardware.aic8800d80.enable = true;
+       hardware.bluetooth.enable = true;
+       hardware.bluetooth.powerOnBoot = true; 
 
 3. Apply the configuration. Secure Boot must be disabled, because the kernel module is not signed:
 
