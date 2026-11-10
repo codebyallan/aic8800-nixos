@@ -2,7 +2,7 @@
 let
   src = builtins.fetchGit {
     url = "https://github.com/codebyallan/aic8800-nixos";
-    rev = "97a11d0e4bada9600b2d103b2449fcdf66d653d7";
+    rev = "1947175c80757f1911f6f35a67732f6147a6f8e2";
   };
 in
 import "${src}/aic8800.nix"
