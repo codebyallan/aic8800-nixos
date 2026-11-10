@@ -62,10 +62,18 @@ let
     }) { };
 in
 {
-  options.hardware.aic8800d80.enable = lib.mkEnableOption "AIC8800D80 USB Wi-Fi 6 adapter driver";
+  options.hardware.aic8800d80 = {
+    enable = lib.mkEnableOption "AIC8800D80 USB Wi-Fi 6 adapter driver";
+
+    mode = lib.mkOption {
+      type = lib.types.enum [ "in-tree" "external" ];
+      default = "in-tree";
+      description = "Driver loading mode: built into the kernel (in-tree) or out-of-tree module (external).";
+    };
+  };
 
   config = lib.mkIf cfg.enable {
-    boot.extraModulePackages = [ aic8800-kmodule ];
+    boot.extraModulePackages = lib.optionals (cfg.mode == "external") [ aic8800-kmodule ];
     boot.kernelModules = [ "aic_load_fw" "aic8800_fdrv" ];
     hardware.firmware = [ aic8800-firmware ];
     boot.extraModprobeConfig = ''
